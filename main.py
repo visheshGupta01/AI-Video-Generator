@@ -13,7 +13,6 @@ load_dotenv()
 HUGGINGFACE_TOKEN = os.getenv("HUGGINGFACE_TOKEN")
 NEWS_API_KEY = os.getenv("NEWS_API_KEY")
 
-# Load ML models
 generator = pipeline('text-generation', model='distilgpt2')
 set_seed(42)
 
@@ -114,7 +113,6 @@ def generate_video(title, description, script):
     final_video_path = f"news_video_{uid}.mp4"
     os.system(f"ffmpeg -y -i combined.mp4 -i {audio_path} -c:v copy -c:a aac -shortest {final_video_path}")
 
-    # Cleanup
     for file in ["intro.png", "main.png", "outro.png", "intro.mp4", "main.mp4", "outro.mp4", "combined.mp4", "inputs.txt", audio_path, image_path]:
         try: os.remove(file)
         except: pass
@@ -131,7 +129,6 @@ def generate_news_video():
     return video_path
 
 
-# Example usage
 if __name__ == "__main__":
     print("Generating video...")
     path = generate_news_video()
